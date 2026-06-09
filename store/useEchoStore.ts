@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import { deleteWaveform, saveWaveform } from '@/lib/audio/waveform';
 import * as repo from '@/lib/db/echoes';
 import type { EchoRow } from '@/lib/db/schema';
 import { audioUri, deleteAudio, persistRecording } from '@/lib/storage/files';
@@ -18,6 +19,8 @@ export interface CreateEchoInput {
   durationMs: number;
   /** Temporary uri of the just-finished recording, moved into the sandbox. */
   recordingUri: string;
+  /** Downsampled amplitude bars for the waveform (persisted as a sidecar). */
+  waveform: number[];
 }
 
 export interface UpdateEchoInput {
@@ -54,8 +57,9 @@ export const useEchoStore = create<EchoState>((set, get) => ({
   createEcho: async (input) => {
     const id = createId();
     // Move the recording into the sandbox before writing the row so a row
-    // never references a missing file.
+    // never references a missing file, then save its waveform sidecar.
     const audioPath = await persistRecording(input.recordingUri, id);
+    await saveWaveform(id, input.waveform);
     const now = Date.now();
     const row: Echo = {
       id,
@@ -86,6 +90,7 @@ export const useEchoStore = create<EchoState>((set, get) => ({
   deleteEcho: async (id) => {
     repo.deleteEcho(id);
     await deleteAudio(audioUri(id));
+    await deleteWaveform(id);
     set((state) => ({ echoes: state.echoes.filter((e) => e.id !== id) }));
   },
 }));
