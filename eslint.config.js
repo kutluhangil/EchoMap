@@ -8,6 +8,6 @@ module.exports = defineConfig([
   // Disable stylistic rules that Prettier owns to avoid conflicts.
   eslintConfigPrettier,
   {
-    ignores: ['dist/*', '.expo/*', 'node_modules/*'],
+    ignores: ['dist/*', '.expo/*', 'node_modules/*', 'lib/db/migrations/*'],
   },
 ]);

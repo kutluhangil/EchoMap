@@ -8,3 +8,6 @@ package-lock.json
 # Author-owned documents — keep their formatting as written
 ECHO-MAP-blueprint.md
 LICENSE
+
+# Generated Drizzle migrations
+lib/db/migrations

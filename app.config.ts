@@ -44,6 +44,8 @@ const config: ExpoConfig = {
   plugins: [
     'expo-router',
     'expo-localization',
+    'expo-sqlite',
+    'expo-sharing',
     [
       'expo-splash-screen',
       {
