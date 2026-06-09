@@ -13,7 +13,8 @@
     "skip": "Geç",
     "done": "Tamam",
     "retry": "Tekrar dene",
-    "close": "Kapat"
+    "close": "Kapat",
+    "share": "Paylaş"
   },
   "tabs": {
     "map": "Harita",
@@ -62,7 +63,9 @@
     "slide3": {
       "title": "Yıllar sonra yeniden dinle",
       "body": "Haritayı aç, bir pin'e dokun ve o ana geri dön."
-    }
+    },
+    "permissionsDisclosure": "Echo Map, kaydetmek için mikrofonunu ve her yankıyı işaretlemek için konumunu kullanır. İkisi de cihazında kalır.",
+    "allow": "İzin ver ve başla"
   },
   "permissions": {
     "microphone": {
@@ -75,6 +78,7 @@
     }
   },
   "capture": {
+    "header": "Yeni yankı",
     "record": "Kaydet",
     "stop": "Durdur",
     "listening": "Dinleniyor…",
@@ -83,6 +87,24 @@
     "noteLabel": "Anı",
     "notePlaceholder": "Neyi hatırlamak istersin?",
     "save": "Bu yankıyı kaydet",
-    "saving": "Kaydediliyor…"
+    "saving": "Kaydediliyor…",
+    "discard": "Vazgeç",
+    "locating": "Neredesin diye bakıyoruz…",
+    "locationUnavailable": "Konumunu bulamadık",
+    "allowLocation": "Konuma izin ver",
+    "untitled": "İsimsiz yankı"
+  },
+  "detail": {
+    "deleteTitle": "Bu yankı silinsin mi?",
+    "deleteMessage": "Bu kayıt kalıcı olarak silinecek.",
+    "notFound": "Bu yankı yok."
+  },
+  "errors": {
+    "generic": "Bir şeyler ters gitti.",
+    "saveFailed": "Bu yankıyı kaydedemedik. Tekrar dene.",
+    "micDenied": {
+      "title": "Mikrofon kapalı",
+      "body": "Kaydetmek için Ayarlar'dan mikrofon erişimini aç."
+    }
   }
 }

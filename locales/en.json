@@ -13,7 +13,8 @@
     "skip": "Skip",
     "done": "Done",
     "retry": "Try again",
-    "close": "Close"
+    "close": "Close",
+    "share": "Share"
   },
   "tabs": {
     "map": "Map",
@@ -62,7 +63,9 @@
     "slide3": {
       "title": "Hear it again, years later",
       "body": "Open the map and tap a pin to return to that exact moment."
-    }
+    },
+    "permissionsDisclosure": "Echo Map uses your microphone to record and your location to pin each echo. Both stay on your device.",
+    "allow": "Allow & begin"
   },
   "permissions": {
     "microphone": {
@@ -75,6 +78,7 @@
     }
   },
   "capture": {
+    "header": "New echo",
     "record": "Record",
     "stop": "Stop",
     "listening": "Listening…",
@@ -83,6 +87,24 @@
     "noteLabel": "Memory",
     "notePlaceholder": "What do you want to remember?",
     "save": "Save this echo",
-    "saving": "Saving…"
+    "saving": "Saving…",
+    "discard": "Discard",
+    "locating": "Finding where you are…",
+    "locationUnavailable": "We couldn't find your location",
+    "allowLocation": "Allow location",
+    "untitled": "Untitled echo"
+  },
+  "detail": {
+    "deleteTitle": "Delete this echo?",
+    "deleteMessage": "This recording will be gone for good.",
+    "notFound": "This echo is gone."
+  },
+  "errors": {
+    "generic": "Something went wrong.",
+    "saveFailed": "We couldn't save this echo. Try again.",
+    "micDenied": {
+      "title": "Microphone is off",
+      "body": "Enable microphone access in Settings to record."
+    }
   }
 }
