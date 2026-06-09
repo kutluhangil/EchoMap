@@ -1,28 +1,48 @@
-import { createContext, useContext, type ReactNode } from 'react';
+import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import { useColorScheme } from 'react-native';
 
+import { useSettingsStore } from '@/store/useSettingsStore';
 import { darkColors, lightColors, type ThemeColors } from './colors';
+import { radius, space } from './spacing';
+import { type as typeScale } from './typography';
 
 interface ThemeValue {
   colors: ThemeColors;
   scheme: 'light' | 'dark';
+  space: typeof space;
+  radius: typeof radius;
+  type: typeof typeScale;
 }
 
-const ThemeContext = createContext<ThemeValue>({ colors: darkColors, scheme: 'dark' });
+const ThemeContext = createContext<ThemeValue | null>(null);
 
 /**
- * Minimal theme slot. Resolves the system scheme with a dark fallback, matching
- * the app's dark-first intent. The Aesthetician extends this with a manual
- * light/dark/system override persisted in MMKV and with font loading.
+ * Resolves the active scheme from the user's preference (Settings) over the
+ * system scheme, defaulting to dark. Anything that isn't explicitly light
+ * resolves to dark to keep the app dark-first.
  */
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  // Anything that isn't explicitly light (dark, unspecified, null) resolves to
-  // dark, matching the app's dark-first intent.
-  const scheme: 'light' | 'dark' = useColorScheme() === 'light' ? 'light' : 'dark';
-  const colors = scheme === 'light' ? lightColors : darkColors;
-  return <ThemeContext.Provider value={{ colors, scheme }}>{children}</ThemeContext.Provider>;
+  const preference = useSettingsStore((s) => s.theme);
+  const system = useColorScheme();
+  const scheme: 'light' | 'dark' =
+    preference === 'system' ? (system === 'light' ? 'light' : 'dark') : preference;
+
+  const value = useMemo<ThemeValue>(
+    () => ({
+      colors: scheme === 'light' ? lightColors : darkColors,
+      scheme,
+      space,
+      radius,
+      type: typeScale,
+    }),
+    [scheme],
+  );
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme(): ThemeValue {
-  return useContext(ThemeContext);
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error('useTheme must be used within a ThemeProvider');
+  return ctx;
 }
