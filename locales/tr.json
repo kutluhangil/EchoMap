@@ -8,16 +8,77 @@
     "cancel": "Vazgeç",
     "delete": "Sil",
     "edit": "Düzenle",
-    "begin": "Başla"
+    "begin": "Başla",
+    "next": "İleri",
+    "skip": "Geç",
+    "done": "Tamam",
+    "retry": "Tekrar dene",
+    "close": "Kapat"
   },
   "tabs": {
     "map": "Harita",
     "timeline": "Zaman Çizelgesi"
   },
   "map": {
-    "empty": "Haritan sessiz. İlk yankını kaydet."
+    "empty": {
+      "title": "Haritan sessiz",
+      "description": "İlk yankını kaydet, haritan canlansın."
+    }
   },
   "timeline": {
-    "empty": "Henüz yankı yok."
+    "empty": {
+      "title": "Henüz yankı yok",
+      "description": "Kaydettiğin sesler burada toplanacak, en eski anılarıyla birlikte."
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "appearance": "Görünüm",
+    "theme": "Tema",
+    "themeSystem": "Sistem",
+    "themeLight": "Açık",
+    "themeDark": "Koyu",
+    "language": "Dil",
+    "languageSystem": "Sistem",
+    "languageEn": "English",
+    "languageTr": "Türkçe",
+    "about": "Hakkında",
+    "privacyPolicy": "Gizlilik politikası",
+    "version": "Sürüm"
+  },
+  "onboarding": {
+    "slide1": {
+      "title": "Hayatının seslerini sakla",
+      "body": "Fotoğraf değil — bir kafenin uğultusu, sahildeki dalgalar, unutmak istemediğin bir kahkaha."
+    },
+    "slide2": {
+      "title": "Tek dokunuşla kaydet ve işaretle",
+      "body": "Anı yakala, biz onu yaşandığı yere iliştirelim."
+    },
+    "slide3": {
+      "title": "Yıllar sonra yeniden dinle",
+      "body": "Haritayı aç, bir pin'e dokun ve o ana geri dön."
+    }
+  },
+  "permissions": {
+    "microphone": {
+      "title": "Mikrofon",
+      "body": "Echo Map, saklamak istediğin sesleri kaydetmek için mikrofonuna ihtiyaç duyar."
+    },
+    "location": {
+      "title": "Konum",
+      "body": "Her kaydı yaşandığı yerle işaretleriz, böylece haritada bulabilirsin. Konum yalnızca kayıt sırasında kullanılır."
+    }
+  },
+  "capture": {
+    "record": "Kaydet",
+    "stop": "Durdur",
+    "listening": "Dinleniyor…",
+    "titleLabel": "Başlık",
+    "titlePlaceholder": "Bu yankıya bir ad ver",
+    "noteLabel": "Anı",
+    "notePlaceholder": "Neyi hatırlamak istersin?",
+    "save": "Bu yankıyı kaydet",
+    "saving": "Kaydediliyor…"
   }
 }

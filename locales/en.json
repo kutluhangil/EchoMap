@@ -8,16 +8,77 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
-    "begin": "Begin"
+    "begin": "Begin",
+    "next": "Next",
+    "skip": "Skip",
+    "done": "Done",
+    "retry": "Try again",
+    "close": "Close"
   },
   "tabs": {
     "map": "Map",
     "timeline": "Timeline"
   },
   "map": {
-    "empty": "Your map is quiet. Record your first echo."
+    "empty": {
+      "title": "Your map is quiet",
+      "description": "Record your first echo to light it up."
+    }
   },
   "timeline": {
-    "empty": "No echoes yet."
+    "empty": {
+      "title": "No echoes yet",
+      "description": "The sounds you save will gather here, oldest memories and all."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeSystem": "System",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "language": "Language",
+    "languageSystem": "System",
+    "languageEn": "English",
+    "languageTr": "Türkçe",
+    "about": "About",
+    "privacyPolicy": "Privacy policy",
+    "version": "Version"
+  },
+  "onboarding": {
+    "slide1": {
+      "title": "Keep the sounds of your life",
+      "body": "Not photos — the hum of a café, waves on a beach, a laugh you don't want to forget."
+    },
+    "slide2": {
+      "title": "Record and pin in one tap",
+      "body": "Capture a moment and we'll tag it to the place it happened."
+    },
+    "slide3": {
+      "title": "Hear it again, years later",
+      "body": "Open the map and tap a pin to return to that exact moment."
+    }
+  },
+  "permissions": {
+    "microphone": {
+      "title": "Microphone",
+      "body": "Echo Map needs your microphone to record the sounds you choose to keep."
+    },
+    "location": {
+      "title": "Location",
+      "body": "We tag each recording with its place so you can find it on the map. Location is used only while you record."
+    }
+  },
+  "capture": {
+    "record": "Record",
+    "stop": "Stop",
+    "listening": "Listening…",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Name this echo",
+    "noteLabel": "Memory",
+    "notePlaceholder": "What do you want to remember?",
+    "save": "Save this echo",
+    "saving": "Saving…"
   }
 }
