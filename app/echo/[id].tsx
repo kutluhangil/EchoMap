@@ -7,8 +7,11 @@ import { Alert, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Player } from '@/components/audio/Player';
+import { FadeIn } from '@/components/motion/FadeIn';
+import { SharedElement } from '@/components/motion/SharedElement';
 import { Button, Field, Pressable, Sheet, Text, type SheetRef } from '@/components/ui';
 import { loadWaveform } from '@/lib/audio/waveform';
+import { haptics } from '@/lib/utils/haptics';
 import { formatCoordinates, formatDate } from '@/lib/utils/format';
 import { useEchoStore } from '@/store/useEchoStore';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -60,6 +63,7 @@ export default function EchoDetail() {
       title: editTitle.trim() || echo.title,
       note: editNote.trim() || null,
     });
+    haptics.success();
     sheetRef.current?.dismiss();
   };
 
@@ -70,6 +74,7 @@ export default function EchoDetail() {
         text: t('common.delete'),
         style: 'destructive',
         onPress: async () => {
+          haptics.warning();
           await deleteEcho(echo.id);
           router.back();
         },
@@ -99,7 +104,7 @@ export default function EchoDetail() {
       </View>
 
       <ScrollView contentContainerStyle={[styles.body, { padding: space.xl, gap: space.lg }]}>
-        <View style={{ gap: 4 }}>
+        <FadeIn style={{ gap: 4 }}>
           <Text variant="title">{echo.title}</Text>
           <Text variant="data" color="textMuted">
             {formatDate(echo.createdAt, i18n.language)}
@@ -108,12 +113,12 @@ export default function EchoDetail() {
           <Text variant="data" color="textFaint">
             {formatCoordinates(echo.lat, echo.lng)}
           </Text>
-        </View>
+        </FadeIn>
 
         {waveform ? (
-          <View style={styles.center}>
+          <SharedElement style={styles.center}>
             <Player uri={echo.audioPath} waveform={waveform} durationMs={echo.durationMs} />
-          </View>
+          </SharedElement>
         ) : null}
 
         {echo.note ? (

@@ -11,6 +11,7 @@ import { Waveform } from '@/components/audio/Waveform';
 import { Button, Field, Pressable, Text } from '@/components/ui';
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location/geo';
 import { reverseGeocode } from '@/lib/location/reverse-geocode';
+import { haptics } from '@/lib/utils/haptics';
 import { useEchoStore } from '@/store/useEchoStore';
 import { useTheme } from '@/theme/ThemeProvider';
 
@@ -76,6 +77,7 @@ export default function NewEcho() {
         recordingUri: recording.uri,
         waveform: recording.waveform,
       });
+      haptics.success();
       router.back();
     } catch {
       setSaving(false);
