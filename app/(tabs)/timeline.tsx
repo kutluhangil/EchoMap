@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Clock } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
 
+import { EmptyState } from '@/components/ui';
 import { useTheme } from '@/theme/ThemeProvider';
 
 /**
@@ -11,13 +13,12 @@ export default function TimelineScreen() {
   const { colors } = useTheme();
   const { t } = useTranslation();
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.text, { color: colors.textMuted }]}>{t('timeline.empty')}</Text>
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
+      <EmptyState
+        icon={<Clock color={colors.accent} size={40} strokeWidth={1.5} />}
+        title={t('timeline.empty.title')}
+        description={t('timeline.empty.description')}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 },
-  text: { fontSize: 16, lineHeight: 24, textAlign: 'center' },
-});
