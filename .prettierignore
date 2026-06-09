@@ -1,0 +1,10 @@
+node_modules
+.expo
+dist
+android
+ios
+package-lock.json
+
+# Author-owned documents — keep their formatting as written
+ECHO-MAP-blueprint.md
+LICENSE
