@@ -1,0 +1,23 @@
+{
+  "app": {
+    "name": "Echo Map",
+    "tagline": "Hayatının ses haritası"
+  },
+  "common": {
+    "save": "Kaydet",
+    "cancel": "Vazgeç",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "begin": "Başla"
+  },
+  "tabs": {
+    "map": "Harita",
+    "timeline": "Zaman Çizelgesi"
+  },
+  "map": {
+    "empty": "Haritan sessiz. İlk yankını kaydet."
+  },
+  "timeline": {
+    "empty": "Henüz yankı yok."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "app": {
+    "name": "Echo Map",
+    "tagline": "A sound map of your life"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "begin": "Begin"
+  },
+  "tabs": {
+    "map": "Map",
+    "timeline": "Timeline"
+  },
+  "map": {
+    "empty": "Your map is quiet. Record your first echo."
+  },
+  "timeline": {
+    "empty": "No echoes yet."
+  }
+}
