@@ -23,6 +23,10 @@
     "empty": {
       "title": "Haritan sessiz",
       "description": "İlk yankını kaydet, haritan canlansın."
+    },
+    "needsToken": {
+      "title": "Harita için anahtar gerekli",
+      "description": "Haritayı görmek için .env dosyana Mapbox anahtarını ekle."
     }
   },
   "timeline": {

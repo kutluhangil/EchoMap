@@ -23,6 +23,10 @@
     "empty": {
       "title": "Your map is quiet",
       "description": "Record your first echo to light it up."
+    },
+    "needsToken": {
+      "title": "The map needs a token",
+      "description": "Add your Mapbox token to .env to see the map."
     }
   },
   "timeline": {
