@@ -20,10 +20,6 @@ const config: ExpoConfig = {
   ios: {
     supportsTablet: false,
     bundleIdentifier: 'com.kutluhangil.echomap',
-    infoPlist: {
-      NSMicrophoneUsageDescription:
-        'Echo Map records short ambient sounds you choose to capture as memories.',
-    },
   },
   android: {
     package: 'com.kutluhangil.echomap',
@@ -44,6 +40,13 @@ const config: ExpoConfig = {
     'expo-localization',
     'expo-sqlite',
     'expo-sharing',
+    [
+      'expo-audio',
+      {
+        microphonePermission:
+          'Echo Map records short ambient sounds you choose to capture as memories.',
+      },
+    ],
     [
       'expo-location',
       {
