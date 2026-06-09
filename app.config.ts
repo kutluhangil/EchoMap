@@ -23,8 +23,6 @@ const config: ExpoConfig = {
     infoPlist: {
       NSMicrophoneUsageDescription:
         'Echo Map records short ambient sounds you choose to capture as memories.',
-      NSLocationWhenInUseUsageDescription:
-        'Echo Map tags your recordings with their location so you can find them on the map.',
     },
   },
   android: {
@@ -46,6 +44,24 @@ const config: ExpoConfig = {
     'expo-localization',
     'expo-sqlite',
     'expo-sharing',
+    [
+      'expo-location',
+      {
+        // Foreground only — the app reads location while recording, never in
+        // the background.
+        locationWhenInUsePermission:
+          'Echo Map tags your recordings with their location so you can find them on the map.',
+        isIosBackgroundLocationEnabled: false,
+        isAndroidBackgroundLocationEnabled: false,
+      },
+    ],
+    [
+      '@rnmapbox/maps',
+      {
+        // Secret download token used only by EAS Build to fetch the native SDK.
+        RNMapboxMapsDownloadToken: process.env.MAPBOX_DOWNLOAD_TOKEN ?? '',
+      },
+    ],
     [
       'expo-splash-screen',
       {
