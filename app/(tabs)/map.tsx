@@ -1,7 +1,9 @@
+import { router } from 'expo-router';
 import { MapPinned, Radio } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
+import { CaptureButton } from '@/components/CaptureButton';
 import { EchoMap } from '@/components/map/EchoMap';
 import { isMapConfigured } from '@/components/map/mapStyle';
 import { EmptyState } from '@/components/ui';
@@ -32,7 +34,7 @@ export default function MapScreen() {
 
   return (
     <View style={[styles.fill, { backgroundColor: colors.background }]}>
-      <EchoMap />
+      <EchoMap onSelectEcho={(id) => router.push({ pathname: '/echo/[id]', params: { id } })} />
       {!hasEchoes ? (
         <View pointerEvents="none" style={StyleSheet.absoluteFill}>
           <EmptyState
@@ -42,6 +44,7 @@ export default function MapScreen() {
           />
         </View>
       ) : null}
+      <CaptureButton />
     </View>
   );
 }
