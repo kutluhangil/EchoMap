@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { initI18n } from '@/lib/i18n';
 import { LanguageSync } from '@/lib/i18n/LanguageSync';
 import { ThemeProvider, useTheme } from '@/theme/ThemeProvider';
+import { DatabaseProvider } from './DatabaseProvider';
 
 // Initialize i18next as a one-time side effect when this module loads, so the
 // first render already has translations available.
@@ -30,7 +31,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
           <BottomSheetModalProvider>
             <LanguageSync />
             <ThemedStatusBar />
-            {children}
+            <DatabaseProvider>{children}</DatabaseProvider>
           </BottomSheetModalProvider>
         </ThemeProvider>
       </SafeAreaProvider>
