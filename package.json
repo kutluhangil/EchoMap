@@ -12,7 +12,8 @@
     "db:generate": "drizzle-kit generate",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^5.2.14",
@@ -71,6 +72,7 @@
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "lint-staged": "^17.0.7",
+    "patch-package": "^8.0.1",
     "prettier": "^3.8.4",
     "typescript": "~6.0.3"
   },
