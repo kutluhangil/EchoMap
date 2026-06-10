@@ -13,9 +13,11 @@ const config: ExpoConfig = {
   name: 'Echo Map',
   slug: 'echo-map',
   version: '1.0.0',
+  description: 'A sound map of your life — record ambient sounds, pin them to a place, and hear them again years later.',
   orientation: 'portrait',
   scheme: 'echomap',
   userInterfaceStyle: 'automatic',
+  primaryColor: '#E08A3C',
   icon: './assets/images/icon.png',
   ios: {
     supportsTablet: false,

@@ -34,6 +34,10 @@ yarn-error.*
 .env
 .env*.local
 
+# secrets
+play-service-account.json
+*.keystore
+
 # typescript
 *.tsbuildinfo
 
