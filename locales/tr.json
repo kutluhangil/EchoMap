@@ -98,11 +98,13 @@
   "detail": {
     "deleteTitle": "Bu yankı silinsin mi?",
     "deleteMessage": "Bu kayıt kalıcı olarak silinecek.",
-    "notFound": "Bu yankı yok."
+    "notFound": "Bu yankı yok.",
+    "shareUnavailable": "Bu cihazda paylaşım kullanılamıyor."
   },
   "errors": {
     "generic": "Bir şeyler ters gitti.",
     "saveFailed": "Bu yankıyı kaydedemedik. Tekrar dene.",
+    "shareFailed": "Bu yankıyı paylaşamadık.",
     "micDenied": {
       "title": "Mikrofon kapalı",
       "body": "Kaydetmek için Ayarlar'dan mikrofon erişimini aç."

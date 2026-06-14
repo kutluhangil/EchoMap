@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { ToastHost } from '@/components/ui';
 import { initI18n } from '@/lib/i18n';
 import { LanguageSync } from '@/lib/i18n/LanguageSync';
 import { ThemeProvider, useTheme } from '@/theme/ThemeProvider';
@@ -32,6 +33,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
             <LanguageSync />
             <ThemedStatusBar />
             <DatabaseProvider>{children}</DatabaseProvider>
+            <ToastHost />
           </BottomSheetModalProvider>
         </ThemeProvider>
       </SafeAreaProvider>

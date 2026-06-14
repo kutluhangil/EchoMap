@@ -98,11 +98,13 @@
   "detail": {
     "deleteTitle": "Delete this echo?",
     "deleteMessage": "This recording will be gone for good.",
-    "notFound": "This echo is gone."
+    "notFound": "This echo is gone.",
+    "shareUnavailable": "Sharing isn't available on this device."
   },
   "errors": {
     "generic": "Something went wrong.",
     "saveFailed": "We couldn't save this echo. Try again.",
+    "shareFailed": "We couldn't share this echo.",
     "micDenied": {
       "title": "Microphone is off",
       "body": "Enable microphone access in Settings to record."

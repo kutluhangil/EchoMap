@@ -11,9 +11,11 @@ import { FadeIn } from '@/components/motion/FadeIn';
 import { SharedElement } from '@/components/motion/SharedElement';
 import { Button, Field, Pressable, Sheet, Text, type SheetRef } from '@/components/ui';
 import { getCachedWaveform, loadWaveform } from '@/lib/audio/waveform';
+import { report } from '@/lib/observability/report';
 import { haptics } from '@/lib/utils/haptics';
 import { formatCoordinates, formatDate } from '@/lib/utils/format';
 import { isLocated, useEchoStore } from '@/store/useEchoStore';
+import { toast } from '@/store/useToastStore';
 import { useTheme } from '@/theme/ThemeProvider';
 
 /**
@@ -87,8 +89,15 @@ export default function EchoDetail() {
   };
 
   const share = async () => {
-    if (await Sharing.isAvailableAsync()) {
+    try {
+      if (!(await Sharing.isAvailableAsync())) {
+        toast.info(t('detail.shareUnavailable'));
+        return;
+      }
       await Sharing.shareAsync(echo.audioPath, { mimeType: 'audio/m4a', dialogTitle: echo.title });
+    } catch (error) {
+      report(error, { scope: 'shareEcho' });
+      toast.error(t('errors.shareFailed'));
     }
   };
 

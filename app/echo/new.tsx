@@ -11,8 +11,10 @@ import { Waveform } from '@/components/audio/Waveform';
 import { Button, Field, Pressable, Text } from '@/components/ui';
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location/geo';
 import { reverseGeocode } from '@/lib/location/reverse-geocode';
+import { report } from '@/lib/observability/report';
 import { haptics } from '@/lib/utils/haptics';
 import { useEchoStore } from '@/store/useEchoStore';
+import { toast } from '@/store/useToastStore';
 import { useTheme } from '@/theme/ThemeProvider';
 
 interface LocationInfo {
@@ -81,9 +83,10 @@ export default function NewEcho() {
       });
       haptics.success();
       router.back();
-    } catch {
+    } catch (error) {
       setSaving(false);
-      Alert.alert(t('errors.saveFailed'));
+      report(error, { scope: 'createEcho' });
+      toast.error(t('errors.saveFailed'));
     }
   }, [recording, location, title, note, createEcho, t]);
 
