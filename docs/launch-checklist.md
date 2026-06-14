@@ -4,6 +4,7 @@ Status of Play readiness. ✅ done in the repo · ⬜ needs you (account, hostin
 console). Policies change — verify current requirements in Play Console.
 
 ## Build & config
+
 - ✅ Managed Expo app, production EAS profile builds an **AAB** (`eas.json`)
 - ✅ Bundle id / package: `com.kutluhangil.echomap`
 - ✅ Permissions: `RECORD_AUDIO`, foreground `ACCESS_FINE/COARSE_LOCATION`; **no**
@@ -14,6 +15,7 @@ console). Policies change — verify current requirements in Play Console.
 - ⬜ Enable **Play App Signing** when you create the app in Play Console
 
 ## Store assets
+
 - ✅ App icon (`assets/images/icon.png`, 1024²) + adaptive foreground/monochrome
 - ✅ Feature graphic 1024×500 (`store-assets/feature-graphic.png`)
 - ✅ Listing copy TR + EN (`store-assets/listing-copy.md`)
@@ -21,6 +23,7 @@ console). Policies change — verify current requirements in Play Console.
   (starting set in `store-assets/screenshots/`)
 
 ## Policy
+
 - ✅ Privacy policy written (`docs/privacy-policy.md`) — fill contact email
 - ⬜ **Host** the privacy policy at a public URL (e.g. GitHub Pages) and paste the
   URL into Play Console
@@ -32,11 +35,23 @@ console). Policies change — verify current requirements in Play Console.
   (the app provides in-app deletion; also offer a web/email route)
 
 ## Quality
+
 - ✅ Accessibility pass documented (`docs/accessibility.md`)
 - ✅ Lazy-loaded heavy modules (globe/map), reduce-motion support
+- ✅ Errors surfaced to the user via toasts + a `report()` seam (`lib/observability/report.ts`)
+- ✅ Native smoke flow (`.maestro/smoke.yaml`) — `maestro test .maestro/smoke.yaml`
 - ⬜ Verify crash-free / no ANR on a physical device before rollout
 
+## Web demo (portfolio)
+
+- ✅ Cinematic landing + live demo dataset on the web build (`app/index.web.tsx`)
+- ✅ Public demo alias **https://echo-map-seven.vercel.app** (returns 200)
+- ⬜ Keep **Vercel Deployment Protection** off for the production alias, or
+  visitors hit a 401 (raw `*-projects.vercel.app` deploy URLs are protected; the
+  clean alias is public)
+
 ## Release track
+
 - ⬜ New personal developer accounts: Play may require **closed testing**
   (12+ testers, 14 days) before production. Plan: internal → closed → production.
 - ⬜ Build the AAB: `eas build --platform android --profile production`

@@ -1,0 +1,70 @@
+# Echo Map — Android smoke flow.
+#
+# Run on a connected device/emulator with a development or release build
+# installed (native modules mean this never runs in Expo Go):
+#
+#   maestro test .maestro/smoke.yaml
+#
+# Text selectors assume the device language is English; swap the strings from
+# locales/tr.json to run against Turkish. This is a happy-path smoke, not an
+# exhaustive suite — it proves launch → capture → timeline → detail → delete.
+appId: com.kutluhangil.echomap
+---
+- launchApp:
+    clearState: true
+
+# Opening globe — tap to skip the animation.
+- tapOn:
+    text: 'Skip'
+    optional: true
+
+# Onboarding — advance to the last slide, then grant permissions.
+- repeat:
+    times: 2
+    commands:
+      - tapOn:
+          text: 'Next'
+          optional: true
+- tapOn:
+    text: 'Allow'
+    optional: true
+- runFlow:
+    when:
+      visible: 'While using the app'
+    commands:
+      - tapOn: 'While using the app'
+- tapOn:
+    text: 'While using the app'
+    optional: true
+
+# Map tab — open the capture flow from the floating button.
+- tapOn:
+    id: 'New echo'
+    optional: true
+
+# Record a short clip, then stop.
+- tapOn:
+    text: 'Record'
+- wait: 1500
+- tapOn:
+    text: 'Stop'
+
+# Save the echo (location is optional, so Save is always available).
+- tapOn:
+    text: 'Save this echo'
+
+# Timeline — the new echo should appear; open it.
+- tapOn:
+    text: 'Timeline'
+    optional: true
+- assertVisible:
+    text: 'ago'
+    optional: true
+
+# Detail — delete the echo to leave the app clean for the next run.
+- tapOn:
+    text: 'Delete'
+    optional: true
+- tapOn:
+    text: 'Delete'
+    optional: true

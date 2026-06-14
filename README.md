@@ -243,6 +243,7 @@ Recordings stay local by default. No account is required. Location is read **onl
 |   ✅   | Nostalgic timeline with relative ages              |
 |   ✅   | Light/dark themes · TR/EN · reduced-motion         |
 |   ✅   | Local-first SQLite storage + export                |
+|   ✅   | Cinematic web demo with live data                  |
 |   🔄   | Optional Supabase cloud backup & multi-device sync |
 |   🔄   | Google Play release                                |
 |   ○    | iOS release                                        |
