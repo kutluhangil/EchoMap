@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Mapbox, { Camera, MapView, MarkerView, UserLocation } from '@rnmapbox/maps';
 import { Crosshair } from 'lucide-react-native';
 import { StyleSheet, View } from 'react-native';
@@ -33,6 +33,37 @@ export function EchoMap({ onSelectEcho }: EchoMapProps) {
   // Only echoes with a fix can be placed; the rest live in the timeline.
   const located = echoes.filter(isLocated);
   const selected = selectedId ? (located.find((e) => e.id === selectedId) ?? null) : null;
+
+  // On first load, frame all the memories instead of dropping the user on the
+  // default world view — the map should open already telling their story.
+  const framed = useRef(false);
+  const locatedCount = located.length;
+  useEffect(() => {
+    if (framed.current || locatedCount === 0) return;
+    framed.current = true;
+    const lngs = located.map((e) => e.lng);
+    const lats = located.map((e) => e.lat);
+    const id = setTimeout(() => {
+      if (locatedCount === 1) {
+        cameraRef.current?.setCamera({
+          centerCoordinate: [lngs[0]!, lats[0]!],
+          zoomLevel: 13,
+          animationDuration: 900,
+        });
+      } else {
+        cameraRef.current?.fitBounds(
+          [Math.max(...lngs), Math.max(...lats)],
+          [Math.min(...lngs), Math.min(...lats)],
+          [120, 80, 200, 80],
+          900,
+        );
+      }
+    }, 350);
+    return () => clearTimeout(id);
+    // Frame once when the first located echoes arrive; intentionally not reactive
+    // to later additions.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locatedCount]);
 
   const recenter = useCallback(async () => {
     const coords = await getCurrentCoordinates();
