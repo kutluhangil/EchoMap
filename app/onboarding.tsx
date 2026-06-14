@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeOut, useReducedMotion } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { PulseRing } from '@/components/motion/PulseRing';
 import { Button, Pressable, Text } from '@/components/ui';
 import { requestMicrophonePermission } from '@/lib/audio/recorder';
 import { requestLocationPermission } from '@/lib/location/geo';
@@ -23,6 +24,7 @@ export default function Onboarding() {
   const { colors, space } = useTheme();
   const insets = useSafeAreaInsets();
   const setOnboarded = useSettingsStore((s) => s.setOnboarded);
+  const reduced = useReducedMotion();
   const [step, setStep] = useState(0);
   const [requesting, setRequesting] = useState(false);
 
@@ -58,6 +60,11 @@ export default function Onboarding() {
             </Text>
           </Pressable>
         ) : null}
+      </View>
+
+      {/* The sound-ring motif breathing quietly behind the first words. */}
+      <View pointerEvents="none" style={styles.motif}>
+        <PulseRing size={220} count={3} intensity={0.12} animate={!reduced} />
       </View>
 
       <Animated.View
@@ -104,6 +111,7 @@ export default function Onboarding() {
 const styles = StyleSheet.create({
   fill: { flex: 1 },
   skip: { alignItems: 'flex-end', height: 24 },
+  motif: { position: 'absolute', top: '24%', alignSelf: 'center' },
   body: { flex: 1, justifyContent: 'center' },
   dots: { flexDirection: 'row', justifyContent: 'center', gap: 8 },
   dot: { width: 8, height: 8, borderRadius: 4 },
