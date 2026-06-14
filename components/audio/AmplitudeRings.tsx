@@ -21,9 +21,13 @@ export function AmplitudeRings({
   color = palette.ember,
 }: AmplitudeRingsProps) {
   const center = size / 2;
-  const maxRadius = center - 8;
+  const maxRadius = center - 4;
 
-  const outerRadius = useDerivedValue(() => 26 + amplitude.value * (maxRadius - 26));
+  // A very faint halo that reaches the canvas edge softens the falloff so the
+  // rings bloom into the background instead of ending on a hard circle.
+  const haloRadius = useDerivedValue(() => 30 + amplitude.value * (maxRadius - 30));
+  const haloOpacity = useDerivedValue(() => 0.04 + amplitude.value * 0.12);
+  const outerRadius = useDerivedValue(() => 26 + amplitude.value * (maxRadius - 30));
   const outerOpacity = useDerivedValue(() => 0.08 + amplitude.value * 0.32);
   const midRadius = useDerivedValue(() => 20 + amplitude.value * (maxRadius - 44));
   const midOpacity = useDerivedValue(() => 0.14 + amplitude.value * 0.4);
@@ -32,6 +36,7 @@ export function AmplitudeRings({
   return (
     <Canvas style={{ width: size, height: size }}>
       <Group>
+        <Circle cx={center} cy={center} r={haloRadius} color={color} opacity={haloOpacity} />
         <Circle cx={center} cy={center} r={outerRadius} color={color} opacity={outerOpacity} />
         <Circle cx={center} cy={center} r={midRadius} color={color} opacity={midOpacity} />
         <Circle cx={center} cy={center} r={coreRadius} color={color} />

@@ -7,6 +7,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import { glow } from '@/theme/elevation';
 import { useTheme } from '@/theme/ThemeProvider';
 import { Pressable } from './Pressable';
 import { Text } from './Text';
@@ -51,6 +52,9 @@ export function Button({
   }[variant];
 
   const isDisabled = disabled || loading;
+  // The primary action is the one warm element that should feel lit; quiet
+  // variants and disabled states stay flat.
+  const glowStyle = variant === 'primary' && !isDisabled ? glow(colors.accent, 'sm') : null;
 
   const pressIn = () => {
     if (!reduced && !isDisabled) scale.value = withTiming(0.96, { duration: 90 });
@@ -60,7 +64,7 @@ export function Button({
   };
 
   return (
-    <Animated.View style={[fullWidth ? styles.fullWidth : null, animatedStyle, style]}>
+    <Animated.View style={[fullWidth ? styles.fullWidth : null, glowStyle, animatedStyle, style]}>
       <Pressable
         accessibilityRole="button"
         accessibilityState={{ disabled: isDisabled, busy: loading }}

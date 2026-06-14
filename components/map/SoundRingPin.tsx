@@ -9,6 +9,7 @@ import {
 } from 'react-native-reanimated';
 
 import { palette } from '@/theme/colors';
+import { duration } from '@/theme/motion';
 
 interface SoundRingPinProps {
   size?: number;
@@ -17,7 +18,7 @@ interface SoundRingPinProps {
   animate?: boolean;
 }
 
-const DURATION = 2400;
+const DURATION = duration.ambient;
 
 /**
  * The signature element rendered in Skia: a glowing ember core that radiates
@@ -51,6 +52,8 @@ export function SoundRingPin({
   return (
     <Canvas style={{ width: size, height: size }}>
       <Group>
+        {/* Soft ember halo under the rings so the pin glows rather than ends sharp. */}
+        <Circle cx={center} cy={center} r={center * 0.4} color={color} opacity={0.12} />
         <Circle
           cx={center}
           cy={center}
