@@ -8,7 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Waveform } from '@/components/audio/Waveform';
 import { CaptureButton } from '@/components/CaptureButton';
 import { EmptyState, Pressable, Text } from '@/components/ui';
-import { loadWaveform } from '@/lib/audio/waveform';
+import { getCachedWaveform, loadWaveform } from '@/lib/audio/waveform';
 import { formatRelativeAge } from '@/lib/utils/format';
 import { useEchoStore, type Echo } from '@/store/useEchoStore';
 import { useTheme } from '@/theme/ThemeProvider';
@@ -54,6 +54,8 @@ export default function TimelineScreen() {
           </Text>
         }
         renderItem={({ item }) => <TimelineRow echo={item} locale={i18n.language} />}
+        initialNumToRender={10}
+        windowSize={7}
       />
       <CaptureButton />
     </View>
@@ -62,9 +64,12 @@ export default function TimelineScreen() {
 
 function TimelineRow({ echo, locale }: { echo: Echo; locale: string }) {
   const { colors, radius, space } = useTheme();
-  const [bars, setBars] = useState<number[]>([]);
+  // Seed from the in-memory cache so a row scrolled back into view paints its
+  // waveform on the first frame instead of flashing empty while disk I/O runs.
+  const [bars, setBars] = useState<number[]>(() => getCachedWaveform(echo.id) ?? []);
 
   useEffect(() => {
+    if (getCachedWaveform(echo.id)) return;
     void loadWaveform(echo.id).then((waveform) => setBars(waveform ?? []));
   }, [echo.id]);
 

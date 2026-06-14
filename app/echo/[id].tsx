@@ -10,7 +10,7 @@ import { Player } from '@/components/audio/Player';
 import { FadeIn } from '@/components/motion/FadeIn';
 import { SharedElement } from '@/components/motion/SharedElement';
 import { Button, Field, Pressable, Sheet, Text, type SheetRef } from '@/components/ui';
-import { loadWaveform } from '@/lib/audio/waveform';
+import { getCachedWaveform, loadWaveform } from '@/lib/audio/waveform';
 import { haptics } from '@/lib/utils/haptics';
 import { formatCoordinates, formatDate } from '@/lib/utils/format';
 import { useEchoStore } from '@/store/useEchoStore';
@@ -31,13 +31,17 @@ export default function EchoDetail() {
   const updateEcho = useEchoStore((s) => s.updateEcho);
   const deleteEcho = useEchoStore((s) => s.deleteEcho);
 
-  const [waveform, setWaveform] = useState<number[] | null>(null);
+  // Reuse the timeline's cached bars so opening a pin shows the player without a
+  // blank frame; only fall back to disk for an echo not seen this session.
+  const [waveform, setWaveform] = useState<number[] | null>(() =>
+    id ? getCachedWaveform(id) : null,
+  );
   const sheetRef = useRef<SheetRef>(null);
   const [editTitle, setEditTitle] = useState('');
   const [editNote, setEditNote] = useState('');
 
   useEffect(() => {
-    if (id) {
+    if (id && !getCachedWaveform(id)) {
       void loadWaveform(id).then(setWaveform);
     }
   }, [id]);
