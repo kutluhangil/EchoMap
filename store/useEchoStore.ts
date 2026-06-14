@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { deleteWaveform, saveWaveform } from '@/lib/audio/waveform';
 import * as repo from '@/lib/db/echoes';
 import type { EchoRow } from '@/lib/db/schema';
+import { clearDemo as clearDemoData, seedDemo as seedDemoData } from '@/lib/db/seed';
 import { audioUri, deleteAudio, persistRecording } from '@/lib/storage/files';
 import { createId } from '@/lib/utils/id';
 
@@ -46,6 +47,10 @@ interface EchoState {
   createEcho: (input: CreateEchoInput) => Promise<Echo>;
   updateEcho: (id: string, patch: UpdateEchoInput) => Promise<void>;
   deleteEcho: (id: string) => Promise<void>;
+  /** Seed the demo dataset into an empty store, then refresh (web only). */
+  seedDemo: () => Promise<void>;
+  /** Remove every demo row and refresh. */
+  clearDemo: () => Promise<void>;
 }
 
 /**
@@ -97,9 +102,21 @@ export const useEchoStore = create<EchoState>((set, get) => ({
   },
 
   deleteEcho: async (id) => {
+    // Use the stored path: real recordings are .m4a, demo audio is .wav.
+    const target = get().echoes.find((e) => e.id === id);
     repo.deleteEcho(id);
-    await deleteAudio(audioUri(id));
+    await deleteAudio(target?.audioPath ?? audioUri(id));
     await deleteWaveform(id);
     set((state) => ({ echoes: state.echoes.filter((e) => e.id !== id) }));
+  },
+
+  seedDemo: async () => {
+    await seedDemoData();
+    set({ echoes: repo.listEchoes(), hydrated: true });
+  },
+
+  clearDemo: async () => {
+    await clearDemoData();
+    set({ echoes: repo.listEchoes() });
   },
 }));

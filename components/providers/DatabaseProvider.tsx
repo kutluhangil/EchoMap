@@ -1,6 +1,6 @@
 import { useEffect, type ReactNode } from 'react';
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Platform, StyleSheet, View } from 'react-native';
 
 import { Text } from '@/components/ui/Text';
 import { db } from '@/lib/db/client';
@@ -16,13 +16,20 @@ import { useTheme } from '@/theme/ThemeProvider';
 export function DatabaseProvider({ children }: { children: ReactNode }) {
   const { success, error } = useMigrations(db, migrations);
   const hydrate = useEchoStore((s) => s.hydrate);
+  const seedDemo = useEchoStore((s) => s.seedDemo);
   const { colors } = useTheme();
 
   useEffect(() => {
-    if (success) {
+    if (!success) return;
+    // The web build is a public demo: seed a curated dataset into an empty
+    // store so the map, timeline, and globe arrive alive. seedDemo refreshes
+    // state itself and no-ops when echoes already exist. Native stays empty.
+    if (Platform.OS === 'web') {
+      void seedDemo();
+    } else {
       hydrate();
     }
-  }, [success, hydrate]);
+  }, [success, hydrate, seedDemo]);
 
   if (error) {
     return (
