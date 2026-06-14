@@ -1,25 +1,14 @@
 {
-  "version": 2,
-  "cleanUrls": true,
-  "headers": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cross-Origin-Opener-Policy",
-          "value": "same-origin"
-        },
-        {
-          "key": "Cross-Origin-Embedder-Policy",
-          "value": "require-corp"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/((?!_expo/.*|assets/.*|api/.*|.*\\.[a-zA-Z0-9]+$).*)",
-      "destination": "/index.html"
-    }
+      "src": "/(.*)",
+      "headers": {
+        "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Embedder-Policy": "require-corp"
+      },
+      "continue": true
+    },
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
   ]
 }
