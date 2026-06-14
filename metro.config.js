@@ -6,4 +6,7 @@ const config = getDefaultConfig(__dirname);
 // apply them.
 config.resolver.sourceExts.push('sql');
 
+// Add wasm asset support for SQLite web
+config.resolver.assetExts.push('wasm');
+
 module.exports = config;
