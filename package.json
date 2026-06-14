@@ -13,7 +13,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "build:web": "expo export --platform web && cp node_modules/expo-sqlite/web/wa-sqlite/wa-sqlite.wasm dist/ && cp vercel.json dist/",
+    "deploy:web": "npm run build:web && vercel deploy --project echo-map --prod --yes dist"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^5.2.14",
@@ -43,6 +45,7 @@
     "i18next": "^26.3.1",
     "jszip": "^3.10.1",
     "lucide-react-native": "^1.17.0",
+    "mapbox-gl": "^2.15.0",
     "nanoid": "^5.1.11",
     "react": "19.2.3",
     "react-dom": "19.2.3",

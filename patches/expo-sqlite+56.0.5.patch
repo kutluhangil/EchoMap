@@ -1,0 +1,19 @@
+diff --git a/node_modules/expo-sqlite/web/worker.ts b/node_modules/expo-sqlite/web/worker.ts
+index deaf721..b8a740b 100644
+--- a/node_modules/expo-sqlite/web/worker.ts
++++ b/node_modules/expo-sqlite/web/worker.ts
+@@ -779,7 +779,13 @@ async function maybeInitAsync(): Promise<{
+ }> {
+   if (!_sqlite3) {
+     const module = await WaSQLiteFactory({
+-      locateFile: () => wasmModule,
++      locateFile: () => {
++        const path = '/wa-sqlite.wasm';
++        if (typeof self !== 'undefined' && self.location && self.location.origin) {
++          return self.location.origin + path;
++        }
++        return path;
++      },
+     });
+     _sqlite3 = SQLite.Factory(module) as SQLiteAPI;
+     if (!_sqlite3) {
