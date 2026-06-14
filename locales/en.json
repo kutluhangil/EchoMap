@@ -3,6 +3,17 @@
     "name": "Echo Map",
     "tagline": "A sound map of your life"
   },
+  "landing": {
+    "tagline": "Record a place. Hear it again, years later.",
+    "subtitle": "Echo Map pins the ambient sounds of the places that matter — then plays them back, exactly where they happened. Not photos. Sound.",
+    "ctaDemo": "Try the live demo",
+    "ctaGithub": "View on GitHub",
+    "features": {
+      "record": "Record in one tap",
+      "map": "Pinned to the map",
+      "relive": "Relived years later"
+    }
+  },
   "common": {
     "save": "Save",
     "cancel": "Cancel",

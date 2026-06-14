@@ -3,6 +3,17 @@
     "name": "Echo Map",
     "tagline": "Hayatının ses haritası"
   },
+  "landing": {
+    "tagline": "Bir yeri kaydet. Yıllar sonra yeniden dinle.",
+    "subtitle": "Echo Map, anlamlı yerlerin ortam seslerini iliştirir — sonra tam yaşandıkları yerde geri oynatır. Fotoğraf değil. Ses.",
+    "ctaDemo": "Canlı demoyu dene",
+    "ctaGithub": "GitHub'da gör",
+    "features": {
+      "record": "Tek dokunuşla kayıt",
+      "map": "Haritaya iliştirilir",
+      "relive": "Yıllar sonra yeniden"
+    }
+  },
   "common": {
     "save": "Kaydet",
     "cancel": "Vazgeç",

@@ -22,7 +22,9 @@ interface GlobeSceneProps {
   landColor: string;
   rimColor: string;
   emberColor: string;
-  onZoomComplete: () => void;
+  /** `intro` plays the zoom-and-handoff; `idle` just rotates (landing hero). */
+  mode?: 'intro' | 'idle';
+  onZoomComplete?: () => void;
 }
 
 function easeInOut(x: number): number {
@@ -43,6 +45,7 @@ export function GlobeScene({
   landColor,
   rimColor,
   emberColor,
+  mode = 'intro',
   onZoomComplete,
 }: GlobeSceneProps) {
   const groupRef = useRef<Group>(null);
@@ -72,12 +75,19 @@ export function GlobeScene({
     const group = groupRef.current;
     if (!group) return;
 
+    // Landing hero: rotate forever (or sit still under reduce-motion), never
+    // zoom, never hand off — there's nothing to hand off to.
+    if (mode === 'idle') {
+      if (!reducedMotion) group.rotateY(delta * 0.08);
+      return;
+    }
+
     if (reducedMotion) {
       group.quaternion.copy(targetQuat);
       camera.position.setZ(Z_END);
       if (!completed.current) {
         completed.current = true;
-        onZoomComplete();
+        onZoomComplete?.();
       }
       return;
     }
@@ -93,7 +103,7 @@ export function GlobeScene({
       camera.position.setZ(Z_START + (Z_END - Z_START) * eased);
       if (progress >= 1 && !completed.current) {
         completed.current = true;
-        onZoomComplete();
+        onZoomComplete?.();
       }
     }
   });
