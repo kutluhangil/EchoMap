@@ -9,12 +9,21 @@ import { createId } from '@/lib/utils/id';
 /** A geotagged sound memory (the SQLite row shape). */
 export type Echo = EchoRow;
 
+/** An echo that has a fix — the only kind the map and globe can plot. */
+export type LocatedEcho = Echo & { lat: number; lng: number };
+
+/** Narrows to echoes that carry coordinates. */
+export function isLocated(echo: Echo): echo is LocatedEcho {
+  return echo.lat != null && echo.lng != null;
+}
+
 /** Fields supplied by the capture flow; ids and timestamps are assigned here. */
 export interface CreateEchoInput {
   title: string;
   note?: string | null;
-  lat: number;
-  lng: number;
+  /** Null when saved without a location (permission denied or GPS timed out). */
+  lat: number | null;
+  lng: number | null;
   locationName?: string | null;
   durationMs: number;
   /** Temporary uri of the just-finished recording, moved into the sandbox. */

@@ -14,8 +14,10 @@ export const echoes = sqliteTable(
     id: text('id').primaryKey(),
     title: text('title').notNull(),
     note: text('note'),
-    lat: real('lat').notNull(),
-    lng: real('lng').notNull(),
+    // Nullable: a recording can be saved without a fix (permission denied or a
+    // timed-out GPS). Such echoes live in the timeline but aren't plotted.
+    lat: real('lat'),
+    lng: real('lng'),
     locationName: text('location_name'),
     audioPath: text('audio_path').notNull(),
     durationMs: integer('duration_ms').notNull(),

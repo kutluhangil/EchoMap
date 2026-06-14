@@ -8,8 +8,8 @@ create table if not exists public.echoes (
   user_id       uuid not null references auth.users (id) on delete cascade,
   title         text not null,
   note          text,
-  lat           double precision not null,
-  lng           double precision not null,
+  lat           double precision,     -- nullable: an echo may be saved without a fix
+  lng           double precision,
   location_name text,
   audio_path    text not null,        -- path within the echo-audio bucket
   duration_ms   integer not null,

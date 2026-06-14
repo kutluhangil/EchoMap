@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { CircleLayer, ShapeSource, SymbolLayer } from '@rnmapbox/maps';
 
-import type { Echo } from '@/store/useEchoStore';
+import type { LocatedEcho } from '@/store/useEchoStore';
 import { clusterStyle, pinStyle } from './mapStyle';
 
 // Mapbox's onPress payload isn't re-exported from the package root; this matches
@@ -11,7 +11,7 @@ interface ShapePressEvent {
 }
 
 interface PinClusterProps {
-  echoes: Echo[];
+  echoes: LocatedEcho[];
   onPressEcho: (id: string) => void;
   onPressCluster: (coordinates: [number, number]) => void;
 }

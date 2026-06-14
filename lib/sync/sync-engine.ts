@@ -12,8 +12,8 @@ export interface RemoteEcho {
   user_id: string;
   title: string;
   note: string | null;
-  lat: number;
-  lng: number;
+  lat: number | null;
+  lng: number | null;
   location_name: string | null;
   audio_path: string;
   duration_ms: number;

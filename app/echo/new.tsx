@@ -64,15 +64,17 @@ export default function NewEcho() {
   }, [recording]);
 
   const save = useCallback(async () => {
-    if (!recording || !location) return;
+    // Location is a bonus, not a gate — a memory should never be lost because a
+    // GPS fix was denied or timed out. Save with null coords if we have none.
+    if (!recording) return;
     setSaving(true);
     try {
       await createEcho({
-        title: title.trim() || location.name || t('capture.untitled'),
+        title: title.trim() || location?.name || t('capture.untitled'),
         note: note.trim() || null,
-        lat: location.coords.lat,
-        lng: location.coords.lng,
-        locationName: location.name,
+        lat: location?.coords.lat ?? null,
+        lng: location?.coords.lng ?? null,
+        locationName: location?.name ?? null,
         durationMs: recording.durationMs,
         recordingUri: recording.uri,
         waveform: recording.waveform,
@@ -148,6 +150,11 @@ export default function NewEcho() {
             </Pressable>
           )}
         </View>
+        {!locating && !location ? (
+          <Text variant="caption" color="textFaint" style={styles.optionalHint}>
+            {t('capture.locationOptional')}
+          </Text>
+        ) : null}
 
         <Field
           label={t('capture.titleLabel')}
@@ -169,7 +176,6 @@ export default function NewEcho() {
           label={saving ? t('capture.saving') : t('capture.save')}
           onPress={save}
           loading={saving}
-          disabled={!location}
           fullWidth
         />
         <Button label={t('capture.discard')} onPress={discard} variant="ghost" fullWidth />
@@ -191,5 +197,6 @@ const styles = StyleSheet.create({
   body: { alignItems: 'center' },
   waveform: { height: 80, justifyContent: 'center' },
   location: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  optionalHint: { marginTop: -8 },
   footer: { gap: 12 },
 });

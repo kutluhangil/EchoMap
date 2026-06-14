@@ -92,6 +92,7 @@
     "locating": "Neredesin diye bakıyoruz…",
     "locationUnavailable": "Konumunu bulamadık",
     "allowLocation": "Konuma izin ver",
+    "locationOptional": "Konum isteğe bağlı — onsuz da kaydedebilirsin.",
     "untitled": "İsimsiz yankı"
   },
   "detail": {

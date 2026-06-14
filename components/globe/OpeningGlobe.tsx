@@ -20,7 +20,7 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '@/components/ui/Text';
-import { useEchoStore } from '@/store/useEchoStore';
+import { isLocated, useEchoStore } from '@/store/useEchoStore';
 import { palette } from '@/theme/colors';
 import { GlobeScene } from './GlobeScene';
 
@@ -48,8 +48,12 @@ export function OpeningGlobe({ onFinish }: OpeningGlobeProps) {
   const cover = useSharedValue(1); // ink overlay opacity: 1 = fully covered
   const finished = useRef(false);
 
-  const points = useMemo(() => echoes.map((e) => ({ id: e.id, lat: e.lat, lng: e.lng })), [echoes]);
-  const focus = echoes[0] ?? FALLBACK_FOCUS; // newest echo, or the default view
+  const located = useMemo(() => echoes.filter(isLocated), [echoes]);
+  const points = useMemo(
+    () => located.map((e) => ({ id: e.id, lat: e.lat, lng: e.lng })),
+    [located],
+  );
+  const focus = located[0] ?? FALLBACK_FOCUS; // newest located echo, or default view
 
   const finish = useCallback(() => {
     if (finished.current) return;

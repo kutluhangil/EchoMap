@@ -92,6 +92,7 @@
     "locating": "Finding where you are…",
     "locationUnavailable": "We couldn't find your location",
     "allowLocation": "Allow location",
+    "locationOptional": "Location is optional — you can save without it.",
     "untitled": "Untitled echo"
   },
   "detail": {

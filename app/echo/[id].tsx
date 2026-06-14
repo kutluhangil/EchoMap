@@ -13,7 +13,7 @@ import { Button, Field, Pressable, Sheet, Text, type SheetRef } from '@/componen
 import { getCachedWaveform, loadWaveform } from '@/lib/audio/waveform';
 import { haptics } from '@/lib/utils/haptics';
 import { formatCoordinates, formatDate } from '@/lib/utils/format';
-import { useEchoStore } from '@/store/useEchoStore';
+import { isLocated, useEchoStore } from '@/store/useEchoStore';
 import { useTheme } from '@/theme/ThemeProvider';
 
 /**
@@ -114,9 +114,11 @@ export default function EchoDetail() {
             {formatDate(echo.createdAt, i18n.language)}
             {echo.locationName ? ` · ${echo.locationName}` : ''}
           </Text>
-          <Text variant="data" color="textFaint">
-            {formatCoordinates(echo.lat, echo.lng)}
-          </Text>
+          {isLocated(echo) ? (
+            <Text variant="data" color="textFaint">
+              {formatCoordinates(echo.lat, echo.lng)}
+            </Text>
+          ) : null}
         </FadeIn>
 
         {waveform ? (

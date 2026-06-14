@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Pressable } from '@/components/ui';
 import { getCurrentCoordinates } from '@/lib/location/geo';
-import { useEchoStore } from '@/store/useEchoStore';
+import { isLocated, useEchoStore } from '@/store/useEchoStore';
 import { palette } from '@/theme/colors';
 import { DEFAULT_CENTER, DEFAULT_ZOOM, MAP_STYLE_URL, MAPBOX_TOKEN } from './mapStyle';
 import { PinCluster } from './PinCluster';
@@ -30,7 +30,9 @@ export function EchoMap({ onSelectEcho }: EchoMapProps) {
   const insets = useSafeAreaInsets();
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const selected = selectedId ? (echoes.find((e) => e.id === selectedId) ?? null) : null;
+  // Only echoes with a fix can be placed; the rest live in the timeline.
+  const located = echoes.filter(isLocated);
+  const selected = selectedId ? (located.find((e) => e.id === selectedId) ?? null) : null;
 
   const recenter = useCallback(async () => {
     const coords = await getCurrentCoordinates();
@@ -74,7 +76,7 @@ export function EchoMap({ onSelectEcho }: EchoMapProps) {
         />
         <UserLocation visible androidRenderMode="normal" />
         <PinCluster
-          echoes={echoes}
+          echoes={located}
           onPressEcho={handleEchoPress}
           onPressCluster={handleClusterPress}
         />
