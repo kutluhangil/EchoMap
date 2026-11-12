@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/media/hero.svg" alt="Echo Map — a sound map of your life" width="100%">
+<img src="docs/media/hero.svg" alt="Echo Map — recording with ember sound rings, the echo pinned on a slate map and the timeline of past places" width="100%">
 
 <p>
   <img alt="Expo" src="https://img.shields.io/badge/Expo-React%20Native-ff8a4c?style=for-the-badge&labelColor=06090d">
@@ -55,6 +55,20 @@ flowchart LR
 
 <img src="docs/media/divider.svg" width="100%" alt="">
 
+## Local first, cloud optional
+
+| Piece | Detail |
+|---|---|
+| **Recording** | Up to 60 seconds per echo, with live metering driving the rings and the waveform. |
+| **Storage** | Echoes live in SQLite through Drizzle; audio files and cached waveforms stay on the phone. |
+| **Backup without an account** | Export every echo as one zip (`echoes.json` plus the audio) through the share sheet. |
+| **Optional sync** | With Supabase configured, unsynced echoes push and newer ones pull, last write wins on `updated_at`; audio goes to a private per-user path. Deleting the account removes it all. |
+| **Languages** | English and Turkish, following the system or chosen by hand. |
+| **Errors** | Crash reporting is off unless a Sentry DSN is set. |
+| **Tests** | A Maestro smoke flow walks the app end to end. |
+
+<img src="docs/media/divider.svg" width="100%" alt="">
+
 ## Türkçe özet
 
 **Echo Map**, hayatının bir ses haritası. Anlamlı yerlerin kısa ortam seslerini (bir kafenin uğultusu, sahildeki dalgalar, bir sokak çalgıcısı, çocuğunun kahkahası) kaydedip yaşandığı yere iğneliyorsun. Yıllar sonra haritadaki parlayan iğneye dokununca o ana fotoğrafla değil sesle dönüyorsun. Kayıt, oynatıcı ve harita iğneleri sesin gerçek şiddetine göre atan halkalarla aynı görsel dili paylaşıyor. Expo ile yazılmış bir mobil uygulama.
@@ -80,5 +94,5 @@ store-assets/ store screenshots
 <div align="center">
 <br>
 <a href="https://github.com/kutluhangil"><img src="docs/media/signature.svg" width="100%" alt="Built by kutluhangil"></a>
-<sub>A cool world, a warm memory.</sub>
+<sub>MIT licensed · a cool world, a warm memory · places in the banner are examples.</sub>
 </div>
